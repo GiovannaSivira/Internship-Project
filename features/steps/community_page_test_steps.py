@@ -10,7 +10,7 @@ def open_reely(context):
 
 @when('Log in to the page')
 def Log_in(context):
-    context.app.main_page.signin_to_the_page(email='giovannaloquera@hotmail.com', password='xxxxx')
+    context.app.main_page.signin_to_the_page(email='giovannaloquera@hotmail.com', password='Devinj#01')
 
 @when('Click on settings option')
 def click_on_settings_option(context):
