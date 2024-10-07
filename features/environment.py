@@ -2,7 +2,10 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.firefox.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.support import expected_conditions as EC
+
 
 from app.application import Application
 
@@ -11,7 +14,7 @@ def browser_init(context, scenario_name):
     """
     :param context: Behave context
     """
-
+    # ---- CHROME Configuration -----
     driver_path = ChromeDriverManager().install()
     service = Service(driver_path)
     context.driver = webdriver.Chrome(service=service)
@@ -50,20 +53,21 @@ def browser_init(context, scenario_name):
 ##Mobile Emulation
     ##Set-up Chrome for mobile emulator
 
-    chrome_options = Options()
-    mobile_emulation = {"deviceName": "Nexus 5"}
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
+   #  chrome_options = Options()
+   #  mobile_emulation = {"deviceName": "Nexus 5"}
+   #  chrome_options = webdriver.ChromeOptions()
+   #  chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
+   #
+   # #Initialize Chrome Webdriver with mobile emulation
+   #  driver_path = ChromeDriverManager().install()
+   #  service = Service(driver_path)
+   #  context.driver = webdriver.Chrome(service=service, options=chrome_options)
 
-   #Initialize Chrome Webdriver with mobile emulation
-    driver_path = ChromeDriverManager().install()
-    service = Service(driver_path)
-    context.driver = webdriver.Chrome(service=service, options=chrome_options)
 
-
-    # context.driver.maximize_window()
-    context.driver.set_window_size(1920, 1080)
+    context.driver.maximize_window()
+    # context.driver.set_window_size(1920, 1080)
     context.driver.implicitly_wait(4)
+    context.driver.wait = WebDriverWait(context.driver, 10)
     context.app = Application(context.driver)
 
 
